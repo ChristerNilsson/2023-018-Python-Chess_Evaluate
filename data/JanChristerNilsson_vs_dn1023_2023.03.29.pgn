@@ -1,0 +1,33 @@
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2023.03.29"]
+[Round "-"]
+[White "JanChristerNilsson"]
+[Black "dn1023"]
+[Result "0-1"]
+[CurrentPosition "4kr2/p1r1n2p/8/3pR3/4p3/4P1K1/6PP/8 w - -"]
+[Timezone "UTC"]
+[ECO "A40"]
+[ECOUrl "https://www.chess.com/openings/Englund-Gambit-2.dxe5-Nc6-3.Nf3-Qe7"]
+[UTCDate "2023.03.29"]
+[UTCTime "20:10:08"]
+[WhiteElo "1116"]
+[BlackElo "1098"]
+[TimeControl "300+5"]
+[Termination "dn1023 won by resignation"]
+[StartTime "20:10:08"]
+[EndDate "2023.03.29"]
+[EndTime "20:21:00"]
+[Link "https://www.chess.com/game/live/73859619727"]
+[WhiteUrl "https://images.chesscomfiles.com/uploads/v1/user/72577842.971e8b20.50x50o.15ceb328016b.jpeg"]
+[WhiteCountry "132"]
+[WhiteTitle ""]
+[BlackUrl "https://www.chess.com/bundles/web/images/noavatar_l.84a92436.gif"]
+[BlackCountry "2"]
+[BlackTitle ""]
+
+1. d4 e5 2. dxe5 Nc6 3. Nf3 Qe7 4. Bf4 Qb4+ 5. Bd2 Qxb2 6. Bc3 Bb4 7. Bxb4 Nxb4
+8. Nd4 Qxa1 9. c3 Nxa2 10. Qc2 Nxc3 11. Qxc3 Qxb1+ 12. Kd2 Qb6 13. e3 f6 14. Bc4
+fxe5 15. Nf5 Qf6 16. Bd3 d5 17. Qxc7 Bxf5 18. Bxf5 Qxf5 19. Qxg7 Qxf2+ 20. Kd3
+Qf6 21. Qxb7 Qf5+ 22. Ke2 Rc8 23. Rf1 Qc2+ 24. Kf3 e4+ 25. Kg3 Qc7+ 26. Qxc7
+Rxc7 27. Rf5 Ne7 28. Re5 Rf8 0-1

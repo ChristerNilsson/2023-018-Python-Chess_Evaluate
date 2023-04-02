@@ -1,0 +1,21 @@
+[Event "Rated Rapid game"]
+[Site "https://lichess.org/BFUYknEp"]
+[Date "2023.03.31"]
+[White "Onur1907-06"]
+[Black "ChristerNilsson"]
+[Result "0-1"]
+[UTCDate "2023.03.31"]
+[UTCTime "17:47:38"]
+[WhiteElo "1428"]
+[BlackElo "1689"]
+[WhiteRatingDiff "-2"]
+[BlackRatingDiff "+2"]
+[Variant "Standard"]
+[TimeControl "300+5"]
+[ECO "C58"]
+[Opening "Italian Game: Two Knights Defense, Polerio Defense"]
+[Termination "Normal"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Na5 6. Bb3 Bc5 7. d6 O-O 8. dxc7 Qxc7 9. O-O Nxb3 10. axb3 Bf5 11. d3 Bd6 12. Nc3 h6 13. Nf3 Bg4 14. Nb5 Qc6 15. c4 Bxf3 16. gxf3 a6 17. Nxd6 Qxd6 18. Kh1 b5 19. cxb5 axb5 20. Rxa8 Rxa8 21. Rg1 Qd4 22. Bxh6 g6 23. f4 exf4 24. Qf3 Nd5 25. Qh3 Qxf2 26. Qd7 Qf3+ 27. Rg2 Ra1# 0-1
+
+

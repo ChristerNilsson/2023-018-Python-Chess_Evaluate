@@ -1,0 +1,21 @@
+[Event "Rated Rapid game"]
+[Site "https://lichess.org/7aPwVw9A"]
+[Date "2023.04.01"]
+[White "king1971"]
+[Black "ChristerNilsson"]
+[Result "0-1"]
+[UTCDate "2023.04.01"]
+[UTCTime "17:13:14"]
+[WhiteElo "1467"]
+[BlackElo "1707"]
+[WhiteRatingDiff "-2"]
+[BlackRatingDiff "+2"]
+[Variant "Standard"]
+[TimeControl "300+5"]
+[ECO "C68"]
+[Opening "Ruy Lopez: Exchange Variation, Lutikov Variation"]
+[Termination "Normal"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 bxc6 5. Nxe5 Bb7 6. Qf3 Qf6 7. Qxf6 Nxf6 8. d3 d6 9. Nf3 g6 10. Bg5 Bg7 11. Nc3 h6 12. Bxf6 Bxf6 13. Ne2 O-O-O 14. O-O-O g5 15. d4 c5 16. dxc5 dxc5 17. Rxd8+ Rxd8 18. e5 Be7 19. Rd1 Rxd1+ 20. Kxd1 Bd5 21. Nc3 Bc6 22. Nd2 f5 23. exf6 Bxf6 24. Nde4 Be7 25. f3 Kb7 26. a3 Kb6 27. Kd2 Ka5 28. Kd3 h5 29. Kc4 Kb6 30. g3 h4 31. gxh4 gxh4 32. f4 Bd6 33. Nxd6 cxd6 34. f5 Be8 35. f6 Bf7+ 36. Kd3 d5 37. Ne2 Kc6 38. Nf4 Kd6 39. b3 a5 40. c4 dxc4+ 41. bxc4 Ke5 42. Nd5 h3 43. a4 Bg6+ 44. Ke3 Bf7 45. Kd3 Ke6 46. Ke4 Bg6+ 47. Kf4 Bc2 48. Kg5 Bxa4 49. Kg6 Be8+ 50. Kg5 a4 51. Nc7+ Kf7 52. Nxe8 Kxe8 53. Kg6 Kf8 54. Kf5 a3 55. Kg4 a2 56. Kxh3 a1=Q 57. Kg3 Qxf6 58. h4 Qd4 59. Kh3 Qxc4 60. Kg3 Qd3+ 61. Kg4 Qh7 62. Kg5 c4 63. h5 c3 0-1
+
+

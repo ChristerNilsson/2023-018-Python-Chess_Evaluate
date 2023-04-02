@@ -1,0 +1,21 @@
+[Event "Rated Rapid game"]
+[Site "https://lichess.org/kElIgV5u"]
+[Date "2023.03.31"]
+[White "ChristerNilsson"]
+[Black "arapop"]
+[Result "1-0"]
+[UTCDate "2023.03.31"]
+[UTCTime "19:09:31"]
+[WhiteElo "1696"]
+[BlackElo "1624"]
+[WhiteRatingDiff "+5"]
+[BlackRatingDiff "-5"]
+[Variant "Standard"]
+[TimeControl "300+5"]
+[ECO "C40"]
+[Opening "King's Pawn Game: McConnell Defense"]
+[Termination "Time forfeit"]
+
+1. e4 e5 2. Nf3 Qf6 3. c3 Ne7 4. d4 exd4 5. cxd4 h6 6. Be2 d6 7. O-O Ng6 8. h3 Be7 9. Nc3 c6 10. d5 Nh4 11. dxc6 bxc6 12. Nxh4 Qxh4 13. Re1 O-O 14. Bf3 Nd7 15. Ne2 Ne5 16. Nf4 Nxf3+ 17. Qxf3 Bd8 18. b3 Qf6 19. Bd2 Bb6 20. Bc3 Qg5 21. Kh2 Bc7 22. g3 Qc5 23. Rac1 Bb6 24. Nd3 Qg5 25. h4 Qg6 26. Nf4 Bg4 27. Qd3 Qh7 28. Qxd6 Rad8 29. Qe5 Rde8 30. Ne6 Bxe6 31. Qf4 1-0
+
+
