@@ -12,6 +12,12 @@ export memo = createMemo
 
 export N = 8
 
+export ass = (a,b) =>
+	if not _.isEqual a,b
+		log 'assert failure:'
+		log a
+		log b
+
 export col = (n) => n %% N
 export row = (n) => n // N
 export sum = (arr) => arr.reduce(((a, b) => a + b), 0)

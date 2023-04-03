@@ -73,8 +73,8 @@ for i in range(len(moves)):
 	score = cp_or_mate(score)
 	children = engine.get_top_moves(20)
 	[superiors, superiorsSan] = get_superiors(children,ply)
-	superiors = [ply] + superiors
-	superiorsSan = [san[i]] + superiorsSan
+	#superiors = [ply] + superiors
+	#superiorsSan = [san[i]] + superiorsSan
 	superiors = " ".join(superiors)
 	superiorsSan = " ".join(superiorsSan)
 
@@ -83,9 +83,10 @@ for i in range(len(moves)):
 
 	drag = chess.Move.from_uci(ply)
 	board.push(drag)
-	plies.append([score, superiorsSan, superiors])
+	plies.append([1+i//2, score, san[i], superiorsSan, ply, superiors])
 analys['depth'] = DEPTH
 analys['link'] = link
+analys['cpu'] = round(time.time()-start,3)
 analys['plies'] = plies
 
 with open("data/" + filename+".json","w") as f:
@@ -94,4 +95,4 @@ with open("data/" + filename+".json","w") as f:
 	s = s.replace('[[','[\n[')
 	f.write(s)
 
-print("time:",time.time()-start)
+print("cpu:",analys['cpu'])
