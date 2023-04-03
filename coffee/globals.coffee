@@ -76,7 +76,7 @@ ass "11111111222222223333p3334444444455555555666666667777777788888888", makeMove
 ass 'RNBQKBNR2PPPPPPP33333333P44444445555555566666666pppppppprnbqkbnr', makeMove 'a2a4', "RNBQKBNRPPPPPPPP33333333444444445555555566666666pppppppprnbqkbnr"
 
 export setIndex =(value) =>
-	if value < 0 or value > global.moves.length then return
+	if value < -1 or value > global.moves.length then return
 	if value == -1 then global.board.start()
 	else
 		global.index = value
@@ -124,7 +124,7 @@ export fixSuper = (value) =>
 	global.board.pieces = makeMove uci,global.piecess[global.index-1]
 
 export getMove = (index) =>
-	if global.index==-1
-		return {score:'', uci:'', san:'', superiors:[], superiorsSan:[]}
+	if index==-1
+		{score:'', uci:'', san:'', superiors:[], superiorsSan:[]}
 	else
-		return global.moves[global.index]
+		global.moves[index]

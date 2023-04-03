@@ -7,15 +7,13 @@ export class Button
 		@bg = 'lightgray'
 		@fg = 'black'
 	draw : =>
-		move = getMove global.index
-		console.log move
+		move = getMove global.index-1
 		if global.superIndex == 0
 			txt = move.san
 		else
-			txt = move.superiorsSan[global.superIndex]
+			txt = move.superiorsSan[global.superIndex-1]
 		fill @bg
 		rect @x,@y,@w,@h
-		console.log @text,txt
 		if @text == txt then fill 'red' else fill @fg
 		textSize global.SIZE/2
 		text @text, @x,@y+0.05*global.SIZE

@@ -61,7 +61,6 @@ export ul = (a...) => h "ul", a
 
 export Position = (index) -> "#{"abcdefgh"[col index]}#{"87654321"[row index]}"
 
-
 export createLocalStore = (name,init) =>
 	localState = localStorage.getItem name
 	[state, setState] = createStore if localState then JSON.parse localState else init
