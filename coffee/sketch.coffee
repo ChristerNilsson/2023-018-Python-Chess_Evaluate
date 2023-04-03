@@ -30,6 +30,9 @@ window.setup = =>
 	textAlign CENTER,CENTER
 	rectMode CENTER
 
+	console.log lerp 10,20,0.5
+	global.lerp = lerp
+
 	global.board = new Board()
 
 	# [1, 35, "e5", "c5 d5 c6 Nc6", "e7e5", "c7c5 d7d5 c7c6 b8c6"],
@@ -41,9 +44,10 @@ window.setup = =>
 		superiorsSan = split move[3]
 		uci = move[4]
 		superiors = split move[5]
-		superiorsSan.reverse()
-		superiors.reverse()
-		{score, uci, san, superiors, superiorsSan}
+		superiorsSan = superiorsSan.slice 0,12
+		superiors = superiors.slice 0,12
+		scores = split move[6]
+		{score, uci, san, superiors, superiorsSan, scores}
 	global.piecess.push global.board.pieces
 
 	for move in global.moves

@@ -4,7 +4,7 @@ import json
 import chess
 import chess.pgn
 
-DEPTH = 15
+DEPTH = 10
 
 board = None
 analys = {}
@@ -31,18 +31,21 @@ start = time.time()
 
 def get_superiors(children,move):
 	count = len(children)
+	score = "-999999"
 	for i in range(len(children)):
 		child = children[i]
-		if child["Move"] == move: count = i
-	san = [pretty(child) for child in children[0:count]]
+		if child["Move"] == move:
+			count = i
+			score = cp_or_mate(child)
+			break
 	uci = [child["Move"] for child in children[0:count]]
-	return [uci, san]
+	san = [pretty(child) for child in children[0:count]]
+	scores = [str(child["Centipawn"]) for child in children[0:count]]
+	if score == "-999999":
+		score = cp_or_mate(children[-1])
+	return [uci, san, scores, score]
 
-def cp_or_mate(score):
-	if score["type"] == "cp":
-		return score["value"]
-	else:
-		return "#"+str(score["value"])
+def cp_or_mate(child): return str(child["Centipawn"]) or "#" + str(child["Mate"])
 
 engine = Stockfish(path="stockfish15/stockfish-windows-2022-x86-64-modern")
 engine.set_depth(DEPTH)
@@ -69,21 +72,21 @@ board = game.board()
 for i in range(len(moves)):
 	ply = moves[i]
 	engine.set_position(moves[:i])
-	score = engine.get_evaluation()
-	score = cp_or_mate(score)
+	#score = engine.get_evaluation() FEL!
 	children = engine.get_top_moves(20)
-	[superiors, superiorsSan] = get_superiors(children,ply)
+	[superiors, superiorsSan, scores, score] = get_superiors(children,ply)
 	#superiors = [ply] + superiors
 	#superiorsSan = [san[i]] + superiorsSan
 	superiors = " ".join(superiors)
 	superiorsSan = " ".join(superiorsSan)
+	scores = " ".join(scores)
 
 	if i%2==0: print()
 	print(1+i//2, score, superiorsSan)
 
 	drag = chess.Move.from_uci(ply)
 	board.push(drag)
-	plies.append([1+i//2, score, san[i], superiorsSan, ply, superiors])
+	plies.append([1+i//2, score, san[i], superiorsSan, ply, superiors, scores])
 analys['depth'] = DEPTH
 analys['link'] = link
 analys['cpu'] = round(time.time()-start,3)

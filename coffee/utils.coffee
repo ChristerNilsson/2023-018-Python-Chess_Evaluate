@@ -18,6 +18,8 @@ export ass = (a,b) =>
 		log a
 		log b
 
+export lerp = (a,b,ratio) => a + (b-a)*ratio
+
 export col = (n) => n %% N
 export row = (n) => n // N
 export sum = (arr) => arr.reduce(((a, b) => a + b), 0)

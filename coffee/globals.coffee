@@ -98,10 +98,13 @@ export setIndex =(value) =>
 				y = 0.8*global.SIZE*(i+1.1)
 				san = tempSAN[i]
 				uci = tempUCI[i]
-				button = new Button x,y, san, () => click uci
+				button = new Button x,y, san, () => click i
 				button.bg = ['black','white'][global.index%2]
 				button.fg = ['white','black'][global.index%2]
+				button.align = LEFT
 				global.buttons.push button
+		if global.buttons.length == 1 then i = 0 else i = 1
+		global.buttons[i].drawStar = true
 
 export click = (key) =>
 	if key == 'flip' then global.board.flip()
@@ -113,7 +116,6 @@ export click = (key) =>
 	else if key == 'up'   then fixSuper -1
 	else if key == 'down' then fixSuper 1
 	else
-		log key
 		setIndex global.index
 		global.board.move key
 
