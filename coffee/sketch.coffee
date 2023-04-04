@@ -20,9 +20,9 @@ global.filename = "Hikaru_vs_______.__.__.json"
 window.preload = =>
 	global.data = loadJSON './data/' + global.filename
 	for letter in "rnbqkp"
-		global.pics[letter] = loadImage '/images/b' + letter + '.png'
+		global.pics[letter] = loadImage './images/b' + letter + '.png'
 	for letter in "RNBQKP"
-		global.pics[letter] = loadImage 'images/w' + letter.toLowerCase() + '.png'
+		global.pics[letter] = loadImage './images/w' + letter.toLowerCase() + '.png'
 
 # there is a bug in split
 split = (s)	-> if s=="" then return [] else return s.split " "

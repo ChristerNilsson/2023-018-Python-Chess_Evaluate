@@ -59,7 +59,7 @@ export class Board
 				score = global.moves[global.index-1].scores[global.superIndex-1]
 
 		text 'score: '+score, 7*SIZE, 9.5*SIZE
-		text 'ver: 2023-04-04 17:30', 7*SIZE, 10.0*SIZE
+		text 'ver: 2023-04-04 17:36', 7*SIZE, 10.0*SIZE
 		text 'depth: '+global.data.depth, 7*SIZE, 10.5*SIZE
 		pop()
 		@drawBars score
