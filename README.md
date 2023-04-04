@@ -29,3 +29,9 @@ Filen innehåller en lista av listor:
 
 uci = Universal Chess Interface (b8c6)
 san = Standard Algebraic Notation (Nxc6+)
+
+Listan till höger innehåller de drag som är bättre än det utförda draget.
+Överst ser vi det bästa draget enligt Stockfish. Stjärnmärkt.
+Nederst ser vi det utförda draget.
+Mellan dem ligger drag med fallande styrka.
+Om det utförda draget är bäst, visas bara detta drag.

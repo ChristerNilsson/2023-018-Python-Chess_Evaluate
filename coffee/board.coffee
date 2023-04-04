@@ -47,7 +47,9 @@ export class Board
 
 		@littera()
 
-		text global.index + " of "+ global.moves.length, 5*SIZE, 10.5*SIZE
+		push()
+		textAlign LEFT,CENTER
+		text 'move: '+global.index/2 + " of "+ global.moves.length/2, 4*SIZE, 10.5*SIZE
 		if global.index==0
 			score = 0 
 		else 
@@ -56,18 +58,11 @@ export class Board
 			else 
 				score = global.moves[global.index-1].scores[global.superIndex-1]
 
-		text 'score:'+score, 7*SIZE, 10.5*SIZE
-		text global.data.depth, 10*SIZE, 0.3*SIZE
-
+		text 'score: '+score, 7*SIZE, 9.5*SIZE
+		text 'depth: '+global.data.depth, 7*SIZE, 10.5*SIZE
+		pop()
 		@drawBars score
 
-		# txt0=""
-		# txt1=""
-		# if global.superIndex == 0 then txt0 = "actual move"
-		# #if global.superIndex == getMove(global.index-1).superiorsSan.length then txt1 = "strongest"
-		# if txt0!="" and txt1!="" then txt = txt0 + " == " + txt1
-		# else txt = txt0 + txt1
-		# text txt, 8*SIZE, 10.5*SIZE
 		for button in @buttons
 			button.draw()
 
@@ -106,15 +101,17 @@ export class Board
 
 	calcBar = (score) =>
 		LIMIT = 2000
-		d = Math.abs score
-		if d > LIMIT  then d = LIMIT
-		res = lerp 0*SIZE, 4*SIZE, d/LIMIT
-		if score < 0 then res = -res
+		if score[0]=='#' then d = LIMIT
+		else d = Math.abs score
+		if d>LIMIT then d = LIMIT
+		res = lerp 0, 4*SIZE, d/LIMIT
+		if "-" in score then res = -res
 		Math.round res
-	ass 200,calcBar 2100
-	ass 200,calcBar 2000
-	ass 100,calcBar 1000
-	ass 50,calcBar 500
-	ass 0,calcBar 1
-	ass -50,calcBar -500
+	ass 4*SIZE,calcBar "2100"
+	ass 4*SIZE,calcBar "2000"
+	ass 2*SIZE,calcBar "1000"
+	ass SIZE,calcBar "500"
+	ass 0,calcBar "1"
+	ass -SIZE,calcBar "-500"
+	ass -4*SIZE,calcBar "#-1"
 

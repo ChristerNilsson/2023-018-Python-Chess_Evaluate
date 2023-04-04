@@ -4,7 +4,7 @@ import json
 import chess
 import chess.pgn
 
-DEPTH = 10
+DEPTH = 15
 
 board = None
 analys = {}
@@ -17,7 +17,10 @@ plies = []
 #filename = "lichess_pgn_2023.03.31_Onur1907-06_vs_ChristerNilsson.BFUYknEp"
 #filename = "lichess_pgn_2023.03.31_ChristerNilsson_vs_arapop.kElIgV5u"
 #filename = "lichess_pgn_2023.04.01_MohamedFadel123_vs_ChristerNilsson.MyJVoc2Y"
-filename = "lichess_pgn_2023.04.01_king1971_vs_ChristerNilsson.7aPwVw9A"
+#filename = "lichess_pgn_2023.04.01_king1971_vs_ChristerNilsson.7aPwVw9A"
+#filename = "lichess_pgn_2023.04.03_mathewjohn1965_vs_ChristerNilsson.hwnVaJZo"
+#filename = "Bobby Fischer_vs_Boris V Spassky_1992.__.__"
+filename = "Hikaru_vs_______.__.__"
 
 def dump(objs):
 	print()
@@ -30,6 +33,8 @@ count = 0
 start = time.time()
 
 def get_superiors(children,move):
+	if move=="d8e7":
+		z=99
 	count = len(children)
 	score = "-999999"
 	for i in range(len(children)):
@@ -40,12 +45,15 @@ def get_superiors(children,move):
 			break
 	uci = [child["Move"] for child in children[0:count]]
 	san = [pretty(child) for child in children[0:count]]
-	scores = [str(child["Centipawn"]) for child in children[0:count]]
+	scores = [str(cp_or_mate(child)) for child in children[0:count]]
 	if score == "-999999":
-		score = cp_or_mate(children[-1])
+		score =scores[-1]
 	return [uci, san, scores, score]
 
-def cp_or_mate(child): return str(child["Centipawn"]) or "#" + str(child["Mate"])
+def cp_or_mate(child):
+	if child["Centipawn"] != None: return str(child["Centipawn"])
+	if child["Mate"]      != None: return "#" + str(child["Mate"])
+	return 'bomb'
 
 engine = Stockfish(path="stockfish15/stockfish-windows-2022-x86-64-modern")
 engine.set_depth(DEPTH)
@@ -55,34 +63,30 @@ with open(pgn) as f:
 	game = chess.pgn.read_game(f)
 board = game.board()
 moves = [str(move) for move in game.mainline_moves()]
+print(len(moves)/2,'moves')
 
-#san = [pretty(item) for item in moves]
 san = str(game.mainline_moves()).split(" ")
 san = [item for item in san if '.' not in item]
 
-if filename.startswith("lichess_pgn"):
-	link = game.headers["Site"]
-else:
-	link = game.headers["Link"]
-
-# moves = [move.uci() for move in san]
+# name = "Site" if filename.startswith("lichess_pgn") else "Link"
+if 'Site' in game.headers: link = game.headers['Site']
+if 'Link' in game.headers: link = game.headers['Link']
 
 print("i score move superiors")
 board = game.board()
 for i in range(len(moves)):
+	if i==19:
+		z=99
 	ply = moves[i]
 	engine.set_position(moves[:i])
-	#score = engine.get_evaluation() FEL!
 	children = engine.get_top_moves(20)
 	[superiors, superiorsSan, scores, score] = get_superiors(children,ply)
-	#superiors = [ply] + superiors
-	#superiorsSan = [san[i]] + superiorsSan
 	superiors = " ".join(superiors)
 	superiorsSan = " ".join(superiorsSan)
 	scores = " ".join(scores)
 
 	if i%2==0: print()
-	print(1+i//2, score, superiorsSan)
+	print(1+i//2, score, san[i], superiorsSan)
 
 	drag = chess.Move.from_uci(ply)
 	board.push(drag)

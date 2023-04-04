@@ -9,6 +9,7 @@ export class Button
 		@fg = 'black'
 		@align = CENTER
 		@drawStar = false
+		@bar = null
 
 	star : (c1, c2, x, y, r2, n) =>
 		r1 = 0.385*r2
@@ -31,18 +32,29 @@ export class Button
 			txt = move.san
 		else
 			txt = move.superiorsSan[global.superIndex-1]
+		noStroke()
 		fill @bg
-		rect @x,@y,@w,@h
+		rect @x,@y,@w,@h*0.65
 
-		if @align==LEFT then x=@x-@w/2 else x=@x
+		if @align==LEFT then x=@x-0.45*@w else x=@x
 		if @text == txt then fill 'red' else fill @fg
 		push()
-		textSize global.SIZE/2
+		textSize 0.4*global.SIZE
 		textAlign @align
 		noStroke()
 		text @text, x,@y+0.05*global.SIZE
 		pop()
-		if @drawStar
-			@star "green","white", @x+0.5*global.SIZE, @y, 0.2*global.SIZE, 5
+		if @drawStar then @star "white","green", @x+0.5*global.SIZE, @y, 0.15*global.SIZE, 5
+		if @bar != null then @drawBar()
+
+	drawBar : =>
+		push()
+		rectMode CORNER
+		noStroke()
+		fill 'black'
+		rect @x-@w/2,@y+0.35*@h,@w,0.1*@h
+		fill 'white'
+		rect @x-@w/2,@y+0.35*@h,@w*@bar,0.1*@h
+		pop()
 
 	inside : (x,y) => @x-@w/2 < x < @x+@w/2 and @y-@h/2 < y < @y+@h/2

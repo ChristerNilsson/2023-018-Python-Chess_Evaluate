@@ -1,7 +1,7 @@
 export global = {
 	board:null,
 	index:0,
-	SIZE:50,
+	SIZE:75,
 	filename:"",
 	pics:{},
 	moves:[],
@@ -75,6 +75,23 @@ ass "1111r11122222222333333334444444455555555666666667777777788888888", makeMove
 ass "11111111222222223333p3334444444455555555666666667777777788888888", makeMove 'f4e3', "11111111222222223333P33344444p4455555555666666667777777788888888"
 ass 'RNBQKBNR2PPPPPPP33333333P44444445555555566666666pppppppprnbqkbnr', makeMove 'a2a4', "RNBQKBNRPPPPPPPP33333333444444445555555566666666pppppppprnbqkbnr"
 
+g = (item) =>
+	if "#-" in item then return -1000
+	if "#" in item then return 1000
+	parseInt item
+
+f = (arrScore,c) =>
+	arrScore = _.map arrScore, (item) => g item
+	a = _.min arrScore
+	b = _.max arrScore
+	c = g c
+	d = _.max [Math.abs(a),Math.abs(b)]
+	a = -d
+	(c-a)/(2*d)
+ass 0, f [-100,50],-100
+ass 0.75, f [-100,50],50
+ass 1, f [-100,50],100
+
 export setIndex =(value) =>
 	if value < -1 or value > global.moves.length then return
 	if value == -1 then global.board.start()
@@ -86,25 +103,23 @@ export setIndex =(value) =>
 		move = global.moves[global.index-1]
 		global.superIndex = 0
 		if move.superiors.length == 0
-			tempSAN = [move.san]
-			tempUCI = [move.uci]
-		else
-			tempSAN = [move.san].concat move.superiorsSan
-			tempUCI = [move.uci].concat move.superiors
+			arrSAN = [move.san]
+			arrScore = [move.score]
+		else 
+			arrSAN = move.superiorsSan.concat [move.san]
+			arrScore = move.scores.concat [move.score]
 
-		for i in range min 13, tempSAN.length
+		for i in range min 13, arrSAN.length
 			do (i) =>
 				x = 9.4*global.SIZE
 				y = 0.8*global.SIZE*(i+1.1)
-				san = tempSAN[i]
-				uci = tempUCI[i]
-				button = new Button x,y, san, () => click i
+				button = new Button x,y, arrSAN[i], () => click i
 				button.bg = ['black','white'][global.index%2]
 				button.fg = ['white','black'][global.index%2]
 				button.align = LEFT
+				button.bar = f arrScore, arrScore[i]
 				global.buttons.push button
-		if global.buttons.length == 1 then i = 0 else i = 1
-		global.buttons[i].drawStar = true
+		global.buttons[0].drawStar = true
 
 export click = (key) =>
 	if key == 'flip' then global.board.flip()

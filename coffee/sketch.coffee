@@ -11,8 +11,11 @@ SIZE = global.SIZE
 #global.filename = 'JanChristerNilsson_vs_dn1023_2023.03.29.json'
 #global.filename = "lichess_pgn_2023.03.31_Onur1907-06_vs_ChristerNilsson.BFUYknEp.json"
 #global.filename = "lichess_pgn_2023.03.31_ChristerNilsson_vs_arapop.kElIgV5u.json"
-global.filename ="lichess_pgn_2023.04.01_MohamedFadel123_vs_ChristerNilsson-D15.MyJVoc2Y.json"
-global.filename ="lichess_pgn_2023.04.01_king1971_vs_ChristerNilsson.7aPwVw9A.json"
+#global.filename ="lichess_pgn_2023.04.01_MohamedFadel123_vs_ChristerNilsson-D15.MyJVoc2Y.json"
+#global.filename ="lichess_pgn_2023.04.01_king1971_vs_ChristerNilsson.7aPwVw9A.json"
+#global.filename ="lichess_pgn_2023.04.03_mathewjohn1965_vs_ChristerNilsson.hwnVaJZo.json"
+#global.filename = "Bobby Fischer_vs_Boris V Spassky_1992.__.__.json"
+global.filename = "Hikaru_vs_______.__.__.json"
 
 window.preload = =>
 	global.data = loadJSON '../data/' + global.filename
@@ -30,9 +33,6 @@ window.setup = =>
 	textAlign CENTER,CENTER
 	rectMode CENTER
 
-	console.log lerp 10,20,0.5
-	global.lerp = lerp
-
 	global.board = new Board()
 
 	# [1, 35, "e5", "c5 d5 c6 Nc6", "e7e5", "c7c5 d7d5 c7c6 b8c6"],
@@ -44,9 +44,12 @@ window.setup = =>
 		superiorsSan = split move[3]
 		uci = move[4]
 		superiors = split move[5]
+		scores = split move[6]
 		superiorsSan = superiorsSan.slice 0,12
 		superiors = superiors.slice 0,12
-		scores = split move[6]
+		#superiorsSan.reverse()
+		#superiors.reverse()
+		#scores.reverse()
 		{score, uci, san, superiors, superiorsSan, scores}
 	global.piecess.push global.board.pieces
 
