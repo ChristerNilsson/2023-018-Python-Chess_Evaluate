@@ -6,17 +6,17 @@ import {Square} from '../js/square.js'
 import {makeMove,setIndex,click,fixSuper,global} from '../js/globals.js'
 
 SIZE = global.SIZE
-flag = 0 # used keyPressed/keyReleased
+released = true # used in mousePressed/mouseReleased
 
 #global.filename = 'lichess_pgn_2023.03.30_ChristerNilsson_vs_assman69420.HaBJHriw.json'
-#global.filename = 'JanChristerNilsson_vs_dn1023_2023.03.29.json'
+global.filename = 'JanChristerNilsson_vs_dn1023_2023.03.29.json'
 #global.filename = "lichess_pgn_2023.03.31_Onur1907-06_vs_ChristerNilsson.BFUYknEp.json"
 #global.filename = "lichess_pgn_2023.03.31_ChristerNilsson_vs_arapop.kElIgV5u.json"
 #global.filename ="lichess_pgn_2023.04.01_MohamedFadel123_vs_ChristerNilsson-D15.MyJVoc2Y.json"
 #global.filename ="lichess_pgn_2023.04.01_king1971_vs_ChristerNilsson.7aPwVw9A.json"
 #global.filename ="lichess_pgn_2023.04.03_mathewjohn1965_vs_ChristerNilsson.hwnVaJZo.json"
 #global.filename = "Bobby Fischer_vs_Boris V Spassky_1992.__.__.json"
-global.filename = "Hikaru_vs_______.__.__.json"
+#global.filename = "Hikaru_vs_______.__.__.json"
 
 window.preload = =>
 	global.data = loadJSON './data/' + global.filename
@@ -70,7 +70,7 @@ xdraw = =>
 		button.draw()
 
 window.keyPressed = =>
-	if flag!=0 then return false
+	# if flag!=0 then return false
 	flag = 1
 	if key == 'ArrowRight'  then click 'next'
 	if key == 'ArrowLeft' then click 'prev'
@@ -82,11 +82,16 @@ window.keyPressed = =>
 	xdraw()
 	return false
 
-window.keyReleased = => flag = 0
-
 window.mousePressed = =>
+	if not released then return
+	released =false
 	for button in global.buttons.concat global.board.buttons
 		if button.inside mouseX,mouseY
 			button.onclick()
 			xdraw()
-			return
+			return false
+	false
+
+window.mouseReleased = =>
+	released = true
+	false
