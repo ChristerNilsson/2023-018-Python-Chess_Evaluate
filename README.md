@@ -44,5 +44,4 @@ Att både SAD och UCI används beror på att det krävs en del jobb för att omv
 UCI behövs för att flytta pjäserna på brädet.  
 SAD behövs för att visa användaren draget i text.  
 
-Move: 1.5 innebär att vit gjort två drag och att det är svarts tur.
-
+Move: 7.5 innebär att vit gjort sju drag och att det är svarts tur.

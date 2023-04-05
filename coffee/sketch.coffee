@@ -6,6 +6,7 @@ import {Square} from '../js/square.js'
 import {makeMove,setIndex,click,fixSuper,global} from '../js/globals.js'
 
 SIZE = global.SIZE
+flag = 0 # used keyPressed/keyReleased
 
 #global.filename = 'lichess_pgn_2023.03.30_ChristerNilsson_vs_assman69420.HaBJHriw.json'
 #global.filename = 'JanChristerNilsson_vs_dn1023_2023.03.29.json'
@@ -69,6 +70,8 @@ xdraw = =>
 		button.draw()
 
 window.keyPressed = =>
+	if flag!=0 then return false
+	flag = 1
 	if key == 'ArrowRight'  then click 'next'
 	if key == 'ArrowLeft' then click 'prev'
 	if key == 'ArrowUp'  then click 'up'
@@ -77,6 +80,9 @@ window.keyPressed = =>
 	if key == 'Home' then click 'first'
 	if key == 'End' then click 'last'
 	xdraw()
+	return false
+
+window.keyReleased = => flag = 0
 
 window.mousePressed = =>
 	for button in global.buttons.concat global.board.buttons
