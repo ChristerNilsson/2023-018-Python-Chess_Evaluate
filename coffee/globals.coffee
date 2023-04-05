@@ -1,17 +1,19 @@
 export global = {
 	board:null,
 	index:0,
-	SIZE:75,
+	SIZE:50,
 	filename:"",
 	pics:{},
 	moves:[],
 	data:null,
 	superIndex:0,
 	piecess:[],
-	buttons:[]
+	buttons:[],
+	partier: {},
+	currGame:0
 }
 
-import {ass,log,range} from '../js/utils.js'
+import {ass,log,range,split} from '../js/utils.js'
 import {Button} from '../js/button.js'
 
 export coords = (uci) =>
@@ -23,6 +25,38 @@ export coords = (uci) =>
 ass [8,24], coords "a2a4"
 
 export empty = (n) => (1+n//8).toString()
+
+pgup = => loadGame 1
+pgdn = => loadGame -1
+
+export loadGame = (delta) =>
+	global.currGame = (global.currGame+delta) %% _.size global.partier
+
+	keys = _.keys global.partier
+	global.filename = keys[global.currGame]
+	global.data = global.partier[keys[global.currGame]]
+
+	global.board.start()
+
+	global.moves = global.data.plies
+	global.piecess = []
+	global.moves = _.map global.moves, (move) =>
+		score = move[1]
+		san = move[2]
+		superiorsSan = split move[3]
+		uci = move[4]
+		superiors = split move[5]
+		scores = split move[6]
+		superiorsSan = superiorsSan.slice 0,12
+		superiors = superiors.slice 0,12
+		{score, uci, san, superiors, superiorsSan, scores}
+	global.piecess.push global.board.pieces
+
+	for move in global.moves
+		global.board.pieces = makeMove move.uci, _.last global.piecess
+		global.piecess.push global.board.pieces
+
+	setIndex 0 # tomt bräde
 
 export makeMove = (uci,pieces) =>
 
@@ -130,6 +164,8 @@ export click = (key) =>
 	else if key == 'link' then window.open data.link, '_blank'
 	else if key == 'up'   then fixSuper -1
 	else if key == 'down' then fixSuper 1
+	else if key == 'pgup' then pgup()
+	else if key == 'pgdn' then pgdn()
 	else
 		setIndex global.index
 		global.board.move key

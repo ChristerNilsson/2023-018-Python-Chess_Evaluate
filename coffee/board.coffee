@@ -1,7 +1,7 @@
 import {ass,lerp,range} from '../js/utils.js'
 import {Square} from '../js/square.js'
 import {Button} from '../js/button.js'
-import {makeMove,click,getMove,global} from '../js/globals.js'
+import {makeMove,click,getMove,global, loadGame} from '../js/globals.js'
 
 SIZE = global.SIZE
 
@@ -19,8 +19,11 @@ export class Board
 		@buttons.push new Button 2.7*SIZE, 9.5*SIZE, 'prev', => click 'prev'
 		@buttons.push new Button 4.4*SIZE, 9.5*SIZE, 'next', => click 'next'
 		@buttons.push new Button 6.1*SIZE, 9.5*SIZE, 'last', => click 'last'
+
 		@buttons.push new Button 1.0*SIZE, 10.5*SIZE, 'flip', => click 'flip'
 		@buttons.push new Button 2.7*SIZE, 10.5*SIZE, 'link', => click 'link'
+		@buttons.push new Button 4.4*SIZE, 10.5*SIZE, 'pgup', => click 'pgup'
+		@buttons.push new Button 6.1*SIZE, 10.5*SIZE, 'pgdn', => click 'pgdn'
 	start : =>
 		@pieces = "RNBQKBNRPPPPPPPP33333333444444445555555566666666pppppppprnbqkbnr"
 
@@ -30,7 +33,13 @@ export class Board
 		@pieces = makeMove key, global.piecess[global.index-1]
 		global.superIndex = i
 
-	draw : =>		
+	draw : =>
+
+		for button in @buttons
+			button.draw()
+
+		if not global.data then return
+
 		fill 'white'
 		textSize SIZE*0.3
 
@@ -49,7 +58,7 @@ export class Board
 
 		push()
 		textAlign LEFT,CENTER
-		text 'move: '+global.index/2 + " of "+ global.moves.length/2, 4*SIZE, 10.5*SIZE
+		text 'move: '+global.index/2 + " of "+ global.moves.length/2, 2*SIZE, 10*SIZE
 		if global.index==0
 			score = 0 
 		else 
@@ -58,14 +67,12 @@ export class Board
 			else 
 				score = global.moves[global.index-1].scores[global.superIndex-1]
 
-		text 'score: '+score, 7*SIZE, 9.5*SIZE
-		text 'ver: 2023-04-05 11:33', 7*SIZE, 10.0*SIZE
-		text 'depth: '+global.data.depth, 7*SIZE, 10.5*SIZE
+		text 'score: '+score, 0.5*SIZE, 10*SIZE
+		text 'depth: '+global.data.depth, 5*SIZE, 10*SIZE
+		text 'ver: 2023-04-05 11:33', 7*SIZE, 10*SIZE
+
 		pop()
 		@drawBars score
-
-		for button in @buttons
-			button.draw()
 
 	littera : =>
 		noStroke()

@@ -61,7 +61,7 @@ def makeJSON(filename):
 		game = chess.pgn.read_game(f)
 	board = game.board()
 	moves = [str(move) for move in game.mainline_moves()]
-	print(len(moves)/2,'moves in',filename,end="")
+	print(len(moves)/2,'moves in',filename,' ',end="")
 
 	san = str(game.mainline_moves()).split(" ")
 	san = [item for item in san if '.' not in item]
@@ -97,7 +97,7 @@ def makeJSON(filename):
 		s = s.replace('[[','[\n[')
 		f.write(s)
 
-	print(analys['cpu'])
+	print(' ',analys['cpu'])
 
 	#print("cpu:",analys['cpu'])
 
@@ -120,7 +120,11 @@ for filename in pgn-jsonfiles:
 
 [pgn,jsonfiles] = getFilenames('data')
 
-with open("data/" + "katalog.json","w") as f:
-	s = json.dumps(list(jsonfiles))
-	s = s.replace('", "','",\n "')
+result = {}
+for filename in list(jsonfiles):
+	with open("data/" + filename + ".json", "r") as f:
+		result[filename] = json.load(f)
+with open("data/" + "partier.json","w") as f:
+	s = json.dumps(result)
+	# s = s.replace('", "','",\n "')
 	f.write(s)

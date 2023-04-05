@@ -18,6 +18,7 @@ export ass = (a,b) =>
 		log b
 
 export lerp = (a,b,ratio) => a + (b-a)*ratio
+export split = (s)	-> if s=="" then return [] else return s.split " " # there is a bug in split
 
 export col = (n) => n %% N
 export row = (n) => n // N

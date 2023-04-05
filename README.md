@@ -21,6 +21,8 @@ Pythonprogrammet läser en .pgn-fil och producerar en .json-fil.
 * Brädet kan vändas med mellanslag eller *flip*
 * *link* leder till analys av partiet på chess.com eller lichess.
 * Under varje knapp visas dragets värde grafiskt.
+* *pgup* läser in nästa pgn-fil
+* *pgdn* läser in föregående pgn-fil
 
 # JSON-filen
 
