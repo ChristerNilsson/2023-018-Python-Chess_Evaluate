@@ -1,4 +1,5 @@
 export global = {
+	version:'ver: A',
 	board:null,
 	index:0,
 	SIZE:50,
@@ -13,23 +14,27 @@ export global = {
 	currGame:0
 }
 
-import {ass,log,range,split} from '../js/utils.js'
+import {ass,log,range,split,param} from '../js/utils.js'
 import {Button} from '../js/button.js'
 
 export coords = (uci) =>
+	param.String uci
 	c0 = "abcdefgh".indexOf uci[0]
 	r0 = "12345678".indexOf uci[1]
 	c1 = "abcdefgh".indexOf uci[2]
 	r1 = "12345678".indexOf uci[3]
-	[c0+8*r0, c1+8*r1]
+	param.Array [c0+8*r0, c1+8*r1]
 ass [8,24], coords "a2a4"
 
-export empty = (n) => (1+n//8).toString()
+export empty = (n) =>
+	param.Integer n
+	param.String (1+n//8).toString()
 
 pgup = => loadGame 1
 pgdn = => loadGame -1
 
 export loadGame = (delta) =>
+	param.Test delta in [-1,0,1]
 	global.currGame = (global.currGame+delta) %% _.size global.partier
 
 	keys = _.keys global.partier
@@ -56,35 +61,51 @@ export loadGame = (delta) =>
 		global.board.pieces = makeMove move.uci, _.last global.piecess
 		global.piecess.push global.board.pieces
 
-	setIndex 0 # tomt bräde
+	clickString 'last' # slutställning
 
 export makeMove = (uci,pieces) =>
+	param.String uci
+	param.String pieces
 
 	swap = (a,b,c,d) ->
+		param.Integer a
+		param.Integer b
+		param.Integer c
+		param.Integer d
 		[pieces[a],pieces[b],pieces[c],pieces[d]] = [pieces[b],pieces[a],pieces[d],pieces[c]]
 
 	promote = (uci,from,to) ->
+		param.String uci
+		param.Integer from
+		param.Integer to
 		newPiece = uci[4]
 		if to in range 56,63 then newPiece = newPiece.toUpperCase()
 		pieces[to] = newPiece
 		pieces[from] = empty from
 
 	enPassantTrue = (from,to) -> # Denna funktion skapades av CoPilot. Nästan korrekt.
+		param.Integer from
+		param.Integer to
+		res = false
 		if pieces[from] in 'pP' and pieces[to] == empty to
-			if pieces[from] == 'p' and pieces[to+8]=='P' and from - to in [7,9] then return true # black takes white pawn
-			if pieces[from] == 'P' and pieces[to-8]=='p' and to - from in [7,9] then return true # white takes black pawn
-		return false
+			if pieces[from] == 'p' and pieces[to+8]=='P' and from - to in [7,9] then res = true # black takes white pawn
+			if pieces[from] == 'P' and pieces[to-8]=='p' and to - from in [7,9] then res = true # white takes black pawn
+		param.Boolean res
 
 	enPassant = (from,to) ->
+		param.Integer from
+		param.Integer to
 		if pieces[from] == 'p' then pieces[to+8] = empty to+8
 		if pieces[from] == 'P' then pieces[to-8] = empty to-8
 		pieces[to] = pieces[from]
 		pieces[from] = empty to
 
 	normalMove = (from,to) ->
+		param.Integer from
+		param.Integer to
 		pieces[to] = pieces[from]
 		pieces[from] = empty from 
-		pieces
+		param.Array pieces
 
 	pieces = pieces.split ""
 
@@ -110,23 +131,27 @@ ass "11111111222222223333p3334444444455555555666666667777777788888888", makeMove
 ass 'RNBQKBNR2PPPPPPP33333333P44444445555555566666666pppppppprnbqkbnr', makeMove 'a2a4', "RNBQKBNRPPPPPPPP33333333444444445555555566666666pppppppprnbqkbnr"
 
 g = (item) =>
+	# param.Integer item or param.String
 	if "#-" in item then return -1000
 	if "#" in item then return 1000
-	parseInt item
+	param.Integer parseInt item
 
 f = (arrScore,c) =>
+	param.Array arrScore
+	param.String c
 	arrScore = _.map arrScore, (item) => g item
 	a = _.min arrScore
 	b = _.max arrScore
 	c = g c
 	d = _.max [Math.abs(a),Math.abs(b)]
 	a = -d
-	(c-a)/(2*d)
-ass 0, f [-100,50],-100
-ass 0.75, f [-100,50],50
-ass 1, f [-100,50],100
+	param.Number (c-a)/(2*d)
+ass 0, f [-100,50],'-100'
+ass 0.75, f [-100,50],'50'
+ass 1, f [-100,50],'100'
 
 export setIndex =(value) =>
+	param.Integer value
 	if value < -1 or value > global.moves.length then return
 	if value == -1 then global.board.start()
 	else
@@ -147,7 +172,7 @@ export setIndex =(value) =>
 			do (i) =>
 				x = 9.4*global.SIZE
 				y = 0.8*global.SIZE*(i+1.1)
-				button = new Button x,y, arrSAN[i], () => click i
+				button = new Button x,y, arrSAN[i], () => clickInteger i
 				button.bg = ['black','white'][global.index%2]
 				button.fg = ['white','black'][global.index%2]
 				button.align = LEFT
@@ -155,7 +180,8 @@ export setIndex =(value) =>
 				global.buttons.push button
 		global.buttons[0].drawStar = true
 
-export click = (key) =>
+export clickString = (key) =>
+	param.String key
 	if key == 'flip' then global.board.flip()
 	else if key == 'first' then setIndex 0
 	else if key == 'last' then setIndex global.moves.length
@@ -166,18 +192,25 @@ export click = (key) =>
 	else if key == 'down' then fixSuper 1
 	else if key == 'pgup' then pgup()
 	else if key == 'pgdn' then pgdn()
-	else
-		setIndex global.index
-		global.board.move key
+	else console.log 'unknown key in clickString',key
+
+export clickInteger = (ix) =>
+	param.Integer ix
+	#setIndex global.index
+	#global.superIndex = key
+	global.board.move ix #global.superIndex
+	#fixSuper 0
 
 export fixSuper = (value) =>
+	param.Test value in [-1,0,1]
 	global.superIndex = (global.superIndex+value) %% (getMove(global.index-1).superiors.length+1)
 	if global.superIndex == 0 then uci = getMove(global.index-1).uci
 	else uci = getMove(global.index-1).superiors[global.superIndex-1]
 	global.board.pieces = makeMove uci,global.piecess[global.index-1]
 
 export getMove = (index) =>
+	param.Test -1 <= index <= global.moves.length
 	if index==-1
-		{score:'', uci:'', san:'', superiors:[], superiorsSan:[]}
+		param.Object {score:'', uci:'', san:'', superiors:[], superiorsSan:[]}
 	else
-		global.moves[index]
+		param.Object global.moves[index]

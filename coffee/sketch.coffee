@@ -2,11 +2,11 @@ import _           from 'https://cdn.skypack.dev/lodash'
 import {ass,log,range} from '../js/utils.js'
 import {Board} from '../js/board.js'
 import {Button} from '../js/button.js'
-import {Square} from '../js/square.js'
-import {makeMove,setIndex,click,fixSuper,global,loadGame} from '../js/globals.js'
+#import {Square} from '../js/square.js'
+import {makeMove,setIndex,clickString,fixSuper,global,loadGame} from '../js/globals.js'
 
 SIZE = global.SIZE
-released = true # used in mousePressed/mouseReleased
+released = true # prevention of touch bounce
 
 window.preload = =>
 	global.partier = loadJSON './data/partier.json' # , init
@@ -34,15 +34,15 @@ xdraw = =>
 		button.draw()
 
 window.keyPressed = =>
-	if key == 'ArrowRight'  then click 'next'
-	if key == 'ArrowLeft' then click 'prev'
-	if key == 'ArrowUp'  then click 'up'
-	if key == 'ArrowDown' then click 'down'
-	if key == ' ' then click 'flip'
-	if key == 'Home' then click 'first'
-	if key == 'End' then click 'last'
-	if key == 'PageUp' then click 'pgup'
-	if key == 'PageDown' then click 'pgdn'
+	if key == 'ArrowRight'  then clickString 'next'
+	if key == 'ArrowLeft' then clickString 'prev'
+	if key == 'ArrowUp'  then clickString 'up'
+	if key == 'ArrowDown' then clickString 'down'
+	if key == ' ' then clickString 'flip'
+	if key == 'Home' then clickString 'first'
+	if key == 'End' then clickString 'last'
+	if key == 'PageUp' then clickString 'pgup'
+	if key == 'PageDown' then clickString 'pgdn'
 	xdraw()
 	return false
 

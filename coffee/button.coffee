@@ -1,9 +1,14 @@
 import {getMove,global} from '../js/globals.js'
-import {range} from '../js/utils.js'
+import {param,range} from '../js/utils.js'
 
 export class Button
 	constructor: (@x,@y,@text,@onclick) ->
-		@w = 1.5 * global.SIZE
+		param.Compact "NNSF",arguments
+		# param.Number @x
+		# param.Number @y
+		# param.String @text
+		# param.Function @onclick
+		@w = 1.7 * global.SIZE
 		@h = 0.7 * global.SIZE
 		@bg = 'lightgray'
 		@fg = 'black'
@@ -12,6 +17,12 @@ export class Button
 		@bar = null
 
 	star : (c1, c2, x, y, r2, n) =>
+		param.String c1
+		param.String c2
+		param.Number x
+		param.Number y
+		param.Number r2
+		param.Integer n
 		r1 = 0.385*r2
 		fill c2
 		ellipse x,y,2*r2
@@ -57,4 +68,7 @@ export class Button
 		rect @x-@w/2,@y+0.35*@h,@w*@bar,0.1*@h
 		pop()
 
-	inside : (x,y) => @x-@w/2 < x < @x+@w/2 and @y-@h/2 < y < @y+@h/2
+	inside : (x,y) =>
+		param.Number x
+		param.Number y
+		param.Boolean @x-@w/2 < x < @x+@w/2 and @y-@h/2 < y < @y+@h/2

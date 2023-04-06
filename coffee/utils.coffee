@@ -9,6 +9,25 @@ export signal = createSignal
 export effect = createEffect
 export memo = createMemo
 
+export param = {}
+param.String = (v) => if not _.isString v then console.log (new Error v + " is not a String").stack else v
+param.Number = (v) => if not _.isNumber v then console.log (new Error v + " is not a Number").stack else v
+param.Integer = (v) => if not _.isInteger v then console.log (new Error v + " is not an Integer").stack else v
+param.Boolean = (v) => if not _.isBoolean v then console.log (new Error v + " is not a Boolean").stack else v
+param.Object = (v) => if not _.isObject v then console.log (new Error v + " is not an Object").stack else v
+param.Array = (v) => if not _.isArray v then console.log (new Error v + " is not an Array").stack else v
+param.Function = (v) => if not _.isFunction v then console.log (new Error v + " is not a Function").stack else v
+param.Test = (test,msg='') => if not test then console.log (new Error "param.Test failed:" + msg).stack
+param.Compact = (types,args) =>
+	for i in [0..args.length-1]
+		if types[i] == 'S' then param.String args[i]
+		if types[i] == 'N' then param.Number args[i]
+		if types[i] == 'I' then param.Integer args[i]
+		if types[i] == 'B' then param.Boolean args[i]
+		if types[i] == 'O' then param.Object args[i]
+		if types[i] == 'A' then param.Array args[i]
+		if types[i] == 'F' then param.Function args[i]
+
 export N = 8
 
 export ass = (a,b) =>
@@ -17,8 +36,15 @@ export ass = (a,b) =>
 		log a
 		log b
 
-export lerp = (a,b,ratio) => a + (b-a)*ratio
-export split = (s)	-> if s=="" then return [] else return s.split " " # there is a bug in split
+export lerp = (a,b,ratio) => 
+	param.Number a
+	param.Number b
+	param.Number ratio
+	param.Number a + (b-a)*ratio
+
+export split = (s) ->
+	param.String s
+	param.Array if s=="" then [] else s.split " " # there is a bug in split
 
 export col = (n) => n %% N
 export row = (n) => n // N

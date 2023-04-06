@@ -1,4 +1,4 @@
-{"depth": 15, "link": "https://lichess.org/HaBJHriw", "cpu": 873.818, "plies": [
+{"depth": 15, "link": "https://lichess.org/HaBJHriw", "cpu": 761.168, "plies": [
 [1, "37", "e4", "", "e2e4", "", ""],
 [1, "20", "c5", "", "c7c5", "", ""],
 [2, "37", "Nf3", "", "g1f3", "", ""],

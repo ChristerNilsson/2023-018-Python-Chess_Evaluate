@@ -46,6 +46,16 @@ def cp_or_mate(child):
 engine = Stockfish(path="stockfish15/stockfish-windows-2022-x86-64-modern")
 engine.set_depth(DEPTH)
 
+def convertFilename(filename):
+	if 'lichess_pgn' in filename:
+		datum = filename[12:22]
+		players = filename[23:-9]
+		return datum.replace('.','-') + "_" + players
+	else:
+		datum = filename[-10:]
+		players = filename[0:-11]
+		return datum.replace('.','-') + "_" + players
+
 def makeJSON(filename):
 	global board
 	global analys
@@ -91,7 +101,7 @@ def makeJSON(filename):
 	analys['cpu'] = round(time.time()-start,3)
 	analys['plies'] = plies
 
-	with open("data/" + filename+".json","w") as f:
+	with open("data/" + filename + ".json","w") as f:
 		s = json.dumps(analys)
 		s = s.replace(', [',',\n[')
 		s = s.replace('[[','[\n[')
@@ -106,7 +116,7 @@ def getFilenames(root):
 	json = set()
 	for name in [f for f in scandir(root)]:
 		namn = name.name
-		if namn == "katalog.json": continue
+		if namn == "partier.json": continue
 		if ".pgn" in namn: pgn.add(namn.replace('.pgn',''))
 		elif ".json" in namn: json.add(namn.replace('.json',''))
 		else: print("*** Ignored file:" + namn)
@@ -123,8 +133,8 @@ for filename in pgn-jsonfiles:
 result = {}
 for filename in list(jsonfiles):
 	with open("data/" + filename + ".json", "r") as f:
-		result[filename] = json.load(f)
+		newFilename = convertFilename(filename)
+		result[newFilename] = json.load(f)
 with open("data/" + "partier.json","w") as f:
 	s = json.dumps(result)
-	# s = s.replace('", "','",\n "')
 	f.write(s)

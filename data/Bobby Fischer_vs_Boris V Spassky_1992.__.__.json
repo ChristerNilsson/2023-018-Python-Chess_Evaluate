@@ -1,4 +1,4 @@
-{"depth": 15, "link": "Sveti-Stefan/Belgrade (Yugoslavia)", "cpu": 453.983, "plies": [
+{"depth": 15, "link": "Sveti-Stefan/Belgrade (Yugoslavia)", "cpu": 509.345, "plies": [
 [1, "37", "e4", "", "e2e4", "", ""],
 [1, "42", "e5", "c5 c6", "e7e5", "c7c5 c7c6", "20 35"],
 [2, "47", "Nf3", "", "g1f3", "", ""],

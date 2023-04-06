@@ -1,4 +1,4 @@
-{"depth": 15, "link": "https://lichess.org/7oIetHP1", "cpu": 250.403, "plies": [
+{"depth": 15, "link": "https://lichess.org/7oIetHP1", "cpu": 237.252, "plies": [
 [1, "32", "d4", "e4 Nf3", "d2d4", "e2e4 g1f3", "37 37"],
 [1, "116", "e5", "d5 Nf6 e6 c6 d6 a6 g6 f5 c5 Nc6 h6 b6 a5 b5 Na6 Nh6", "e7e5", "d7d5 g8f6 e7e6 c7c6 d7d6 a7a6 g7g6 f7f5 c7c5 b8c6 h7h6 b7b6 a7a5 b7b5 b8a6 g8h6", "28 28 34 39 47 65 66 67 69 73 74 74 84 86 99 102"],
 [2, "35", "e3", "dxe5 Nc3", "e2e3", "d4e5 b1c3", "137 46"],
