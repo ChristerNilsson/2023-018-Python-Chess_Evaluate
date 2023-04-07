@@ -9,6 +9,20 @@ Utvärdering av dragen sker med hjälp av ett separat pythonprogram som anropar 
 
 Pythonprogrammet läser en .pgn-fil och producerar en .json-fil.
 
+## Knappar
+
+* flip [Space] = vänder på brädet
+* game-1 [PgDn] = byter till äldre parti
+* game+1 [PgUp] = byter till nyare parti
+* link = visar analys på chess.com eller lichess
+
+* first [Home] = går till första draget
+* move-1 [Left] = går till föregående drag
+* move+1 [Right] = går till nästa drag
+* last [End] = går till sista draget
+
+* övriga [Up,Down] = bläddrar bland de bättre dragen
+
 ![Skärmdump](Capture.JPG)
 
 * Det drag som utförts, Ne5, står längst ner i högra knappraden.
