@@ -4,8 +4,9 @@ import json
 import chess
 import chess.pgn
 from os import scandir
+import multiprocessing
 
-DEPTH = 5
+DEPTH = 10
 
 board = None
 analys = {}
@@ -97,8 +98,6 @@ def process(filenames):
 			drag = chess.Move.from_uci(ply)
 			board.push(drag)
 			plies.append([1+i//2, score, san[i], superiorsSan, ply, superiors, scores])
-
-		print(board.fen())
 		analys['depth'] = DEPTH
 		analys['link'] = link
 		analys['cpu'] = round(time.time()-start,3)
@@ -129,23 +128,49 @@ def getFilenames(root):
 		else: print("*** Ignored file:" + namn)
 	return [pgn,json]
 
-[pgn,jsonfiles] = getFilenames('data')
 
-print('DEPTH =', DEPTH)
+[pgn,jsonfiles] = getFilenames('data')
+#print('DEPTH =', DEPTH)
+filenames = []
 uppgifter = list(pgn - jsonfiles)
-process(uppgifter)
+
+buckets = [[]]
+
+for i in range(len(uppgifter)):
+	buckets[i%len(buckets)].append(uppgifter[i])
 
 #print(filenames)
 
-[pgn,jsonfiles] = getFilenames('data')
+# [pgn,jsonfiles] = getFilenames('data')
 
-result = {}
-for filename in list(jsonfiles):
-	with open("data/" + filename + ".json", "r") as f:
-		newFilename = convertFilename(filename)
-		result[newFilename] = json.load(f)
-with open("data/" + "partier.json","w") as f:
-	s = json.dumps(result)
-	f.write(s)
+# result = {}
+# for filename in list(jsonfiles):
+# 	with open("data/" + filename + ".json", "r") as f:
+# 		newFilename = convertFilename(filename)
+# 		result[newFilename] = json.load(f)
+# with open("data/" + "partier.json","w") as f:
+# 	s = json.dumps(result)
+# 	f.write(s)
 
-print("Ready!",time.time() - start)
+if __name__ == '__main__':
+
+	start = time.time()
+	processes = []
+
+	for bucket in buckets:
+		processes.append(multiprocessing.Process(target=process, args=(bucket,)))
+
+	for p in processes:
+		p.start()
+
+	for p in processes:
+		p.join()
+
+	#
+	# p1.start()
+	# p2.start()
+	#
+	# p1.join()
+	# p2.join()
+
+	print("Ready!",time.time() - start)
